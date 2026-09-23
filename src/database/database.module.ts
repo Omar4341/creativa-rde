@@ -1,0 +1,11 @@
+import { Global, Module } from '@nestjs/common';
+import { AppConfigModule } from '../config/app-config.module.js';
+import { DatabaseService } from './database.service.js';
+
+@Global()
+@Module({
+  imports: [AppConfigModule],
+  providers: [DatabaseService],
+  exports: [DatabaseService],
+})
+export class DatabaseModule {}

@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+
+# Environment files — NEVER commit real secrets
+.env
+.env.local
+.env.*.local
+
+# .env.example IS committed (it has no real secrets)
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# TypeScript incremental compilation
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Coverage
+coverage/
+
+# Supabase CLI local state may include database connection details
+/supabase/.temp/
