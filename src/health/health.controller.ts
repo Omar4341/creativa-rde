@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { Public } from '../common/decorators/public.decorator.js';
 
 interface HealthResponse {
   success: true;
@@ -17,6 +18,7 @@ interface HealthResponse {
  * Does NOT check database connectivity (that is a Phase 2 concern).
  */
 @Controller('health')
+@Public()
 export class HealthController {
   @Get()
   check(): HealthResponse {

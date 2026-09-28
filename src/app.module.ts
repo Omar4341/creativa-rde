@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AppConfigModule } from './config/app-config.module.js';
 import { AppConfigService } from './config/app-config.service.js';
@@ -16,6 +17,8 @@ import { QuestionsModule } from './questions/questions.module.js';
 import { VotesModule } from './votes/votes.module.js';
 import { PresenterModule } from './presenter/presenter.module.js';
 import { AdminModule } from './admin/admin.module.js';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
+import { RolesGuard } from './common/guards/roles.guard.js';
 
 @Module({
   imports: [
@@ -51,6 +54,12 @@ import { AdminModule } from './admin/admin.module.js';
     VotesModule,
     PresenterModule,
     AdminModule,
+  ],
+  providers: [
+    // Global guards: every route requires a valid JWT unless marked @Public();
+    // role checks run wherever @Roles() is declared.
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
   ],
 })
 export class AppModule {}
