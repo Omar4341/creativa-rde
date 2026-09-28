@@ -1,0 +1,31 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/health",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [
+    {
+      "name": "SUPABASE_URL",
+      "description": "Your Supabase project URL (e.g. https://yourproject.supabase.co). Find it in your Supabase dashboard under Project Settings > API.",
+      "requiredAtBoot": true,
+      "generatedForDevelopment": false
+    },
+    {
+      "name": "SUPABASE_SERVICE_ROLE_KEY",
+      "description": "Your Supabase service_role key (server-side only, bypasses RLS). Find it in your Supabase dashboard under Project Settings > API > service_role secret.",
+      "requiredAtBoot": true,
+      "generatedForDevelopment": false
+    },
+    {
+      "name": "SUPABASE_ANON_KEY",
+      "description": "Your Supabase anon public key (safe for frontend realtime subscriptions). Find it in your Supabase dashboard under Project Settings > API > anon public.",
+      "requiredAtBoot": true,
+      "generatedForDevelopment": false
+    },
+    {
+      "name": "QR_JWT_SECRET",
+      "description": "Minimum 32-character random secret used to sign QR tokens. A development placeholder is in .env.base44-defaults; replace with a real random secret for production.",
+      "requiredAtBoot": true,
+      "generatedForDevelopment": true
+    }
+  ]
+}
