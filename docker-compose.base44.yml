@@ -1,0 +1,25 @@
+services:
+  api:
+    image: node:24
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - pnpm-store:/app/.pnpm-store
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env.base44-defaults
+      - /run/base44/app.env
+    environment:
+      - ALLOWED_ORIGINS=https://3000-${BASE44_PUBLIC_HOST_SUFFIX}
+    command: sh -c "corepack enable pnpm && pnpm config set store-dir /app/.pnpm-store && pnpm install --frozen-lockfile && pnpm start:dev"
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(r=>{if(!r.ok)throw new Error('unhealthy')}).catch(()=>{process.exit(1)})"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+volumes:
+  pnpm-store:
